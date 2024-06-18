@@ -1,0 +1,15 @@
+class Solution:
+    def maxProfitAssignment(self, difficulty: List[int], profit: List[int], worker: List[int]) -> int:
+        helper=list(zip(difficulty,profit))
+        helper.sort()
+        sum=0
+        j=0
+        current=0
+        worker.sort()
+        for i in range(len(worker)):
+            while j<len(helper) and worker[i]>=helper[j][0]:
+                current=max(current,helper[j][1])
+                j+=1
+            sum+=current
+        return sum
+        
