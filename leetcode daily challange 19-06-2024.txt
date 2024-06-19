@@ -1,0 +1,41 @@
+class Solution {
+    public boolean possible(int a[],int mid,int m,int k){
+        int nob=0,c=0;
+        for(int i=0;i<a.length;i++){
+            if(a[i]<=mid)
+                c+=1;
+            else{
+                nob+=(c/k);
+                c=0;
+            }
+        }
+        nob+=(c/k);
+        return nob>=m;
+
+    }
+    public int bsearch(int a[],int m,int k){
+        long total=(long)m*k;
+        if(total> a.length)
+            return -1;
+        int n=a.length;
+        int mini=Integer.MAX_VALUE;
+        int maxi=Integer.MIN_VALUE;
+        for(int i=0;i<n;i++){
+            mini=Math.min(mini,a[i]);
+            maxi=Math.max(maxi,a[i]);
+        }
+        int low=mini,high=maxi;
+        while(low<=high){
+            int mid=(low+high)/2;
+            if(possible(a,mid,m,k))
+                high=mid-1;
+            else
+                low=mid+1;
+        }
+        return low;
+    }
+    public int minDays(int[] bloomDay, int m, int k) {
+        int ans=bsearch(bloomDay,m,k);
+        return ans; 
+    }
+}
